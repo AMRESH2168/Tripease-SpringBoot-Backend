@@ -1,6 +1,8 @@
 package com.example.tripease.service;
 
 
+import com.example.tripease.dto.request.CustomerRequest;
+import com.example.tripease.dto.response.CustomerResponse;
 import com.example.tripease.exceptions.CustomerNotFoundException;
 import com.example.tripease.model.Customer;
 import com.example.tripease.repository.CustomerRepository;
@@ -14,19 +16,45 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Customer addCustomer(Customer customer) {
-//      Customer savedCustomer= customerRepository.save(customer);
-// return  savedCustomer;
-       return  customerRepository.save(customer);
+    public CustomerResponse addCustomer(CustomerRequest customerRequest) {
+
+        // requestDTO------To-------EntityConversion--------
+
+Customer customer=new Customer();
+
+customer.setName(customerRequest.getName());
+customer.setAge(customerRequest.getAge());
+customer.setEmailId(customerRequest.getEmailId());
+customer.setGender(customerRequest.getGender());
+      Customer savedCustomer=   customerRepository.save(customer);
+
+   //--------------------------Entity to ResponseDto-------------
+
+CustomerResponse customerResponse=new CustomerResponse();
+customerResponse.setName(savedCustomer.getName());
+customerResponse.setAge(savedCustomer.getAge());
+customerResponse.setEmailId(savedCustomer.getEmailId());
+
+
+return customerResponse;
     }
 
-    public Customer getCustomer(int customedId) {
-        Optional<Customer> requiredCustomer= customerRepository.findById(customedId);
+    public CustomerResponse getCustomer(int customerId) {
+        Optional<Customer> requiredCustomer= customerRepository.findById(customerId);
    if(requiredCustomer.isEmpty()){
-       throw new CustomerNotFoundException("invalid customed Id");
+       throw new CustomerNotFoundException("invalid customer Id");
 
    }
-   return requiredCustomer.get();
+   Customer foundCustomer=requiredCustomer.get();
+
+        //--------------------------Entity to ResponseDto-------------
+
+        CustomerResponse customerResponse=new CustomerResponse();
+        customerResponse.setName(foundCustomer.getName());
+        customerResponse.setAge(foundCustomer.getAge());
+        customerResponse.setEmailId(foundCustomer.getEmailId());
+
+   return customerResponse;
 
     }
 }
