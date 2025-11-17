@@ -45,14 +45,14 @@ return customerResponse;
        throw new CustomerNotFoundException("invalid customer Id");
 
    }
-   Customer foundCustomer=requiredCustomer.get();
+   Customer findCustomer=requiredCustomer.get();
 
         //--------------------------Entity to ResponseDto-------------
 
         CustomerResponse customerResponse=new CustomerResponse();
-        customerResponse.setName(foundCustomer.getName());
-        customerResponse.setAge(foundCustomer.getAge());
-        customerResponse.setEmailId(foundCustomer.getEmailId());
+        customerResponse.setName(findCustomer.getName());
+        customerResponse.setAge(findCustomer.getAge());
+        customerResponse.setEmailId(findCustomer.getEmailId());
 
    return customerResponse;
 
