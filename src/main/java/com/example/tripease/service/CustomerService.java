@@ -1,6 +1,7 @@
 package com.example.tripease.service;
 
 
+import com.example.tripease.Enums.Gender;
 import com.example.tripease.dto.request.CustomerRequest;
 import com.example.tripease.dto.response.CustomerResponse;
 import com.example.tripease.exceptions.CustomerNotFoundException;
@@ -10,6 +11,8 @@ import com.example.tripease.transformer.CustomerTransfromer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,5 +64,19 @@ Customer customer=CustomerTransfromer.customerRequestToEntity(customerRequest);
        CustomerResponse customerResponse= CustomerTransfromer.EntityToCustomerResponse(findCustomer);
 
         return customerResponse;
+    }
+
+    public List<CustomerResponse> getAllByGender(Gender gender) {
+List<Customer> customersForGender= customerRepository.findByGender(gender);
+                   // ----------Entity to Customer Response conversion ---------------------------------
+        List<CustomerResponse> customerResponsesForGender=new ArrayList<>();
+
+
+        for(Customer customer:customersForGender){
+            customerResponsesForGender.add(CustomerTransfromer.EntityToCustomerResponse(customer));
+        }
+        return customerResponsesForGender;
+
+
     }
 }

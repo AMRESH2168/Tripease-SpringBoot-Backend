@@ -2,10 +2,7 @@ package com.example.tripease.model;
 
 import com.example.tripease.Enums.Gender;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Customer {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +25,6 @@ public class Customer {
 @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name="customer_id")
 List<Booking> bookings=new ArrayList<>();
+
+
 }

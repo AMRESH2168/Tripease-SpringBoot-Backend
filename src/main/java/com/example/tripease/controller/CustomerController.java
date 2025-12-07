@@ -1,12 +1,15 @@
 package com.example.tripease.controller;
 
 
+import com.example.tripease.Enums.Gender;
 import com.example.tripease.dto.request.CustomerRequest;
 import com.example.tripease.dto.response.CustomerResponse;
 import com.example.tripease.model.Customer;
 import com.example.tripease.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -23,5 +26,12 @@ public class CustomerController {
     @GetMapping("get/customer-id/{id}")
     public CustomerResponse getCustomer ( @PathVariable("id") int customerId){
         return customerService.getCustomer(customerId);
+    }
+
+@GetMapping("get/gender/{gender}")
+    public List<CustomerResponse> getAllByGender( @PathVariable("gender") Gender gender ){
+        return customerService.getAllByGender(gender);
+
+
     }
 }
