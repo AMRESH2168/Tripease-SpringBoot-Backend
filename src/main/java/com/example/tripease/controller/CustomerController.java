@@ -23,15 +23,34 @@ public class CustomerController {
             return customerService.addCustomer(customerRequest);
     }
 
-    @GetMapping("get/customer-id/{id}")
+    @GetMapping("/get/customer-id/{id}")
     public CustomerResponse getCustomer ( @PathVariable("id") int customerId){
         return customerService.getCustomer(customerId);
     }
 
-@GetMapping("get/gender/{gender}")
+@GetMapping("/get/gender/{gender}")
     public List<CustomerResponse> getAllByGender( @PathVariable("gender") Gender gender ){
         return customerService.getAllByGender(gender);
 
 
     }
+@GetMapping ("/get")
+    public  List<CustomerResponse> getAllByGenderAndAge ( @RequestParam ("gender")  Gender gender,
+                                                          @RequestParam ("age") int age){
+        return customerService.getAllByGenderAndAge(gender,age);
+
+
+
+    }
+
+    // GET ALL THE PEOPLE of a particular gender whose age is greater then input age
+    @GetMapping("/get-by-age-greater-than")
+    public  List<CustomerResponse> getAllByGenderAndAgeGreaterThan  ( @RequestParam ("gender")  String gender,
+                                                          @RequestParam ("age") int age){
+        return customerService.getAllByGenderAndAgeGreaterThan (gender,age);
+
+
+
+    }
+
 }

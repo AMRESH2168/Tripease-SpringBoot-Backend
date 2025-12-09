@@ -20,6 +20,8 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
+
+
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
 
         // requestDTO------To-------EntityConversion--------
@@ -78,5 +80,30 @@ List<Customer> customersForGender= customerRepository.findByGender(gender);
         return customerResponsesForGender;
 
 
+    }
+
+    public   List<CustomerResponse> getAllByGenderAndAge(Gender gender, int age) {
+        List<Customer> customersForGenderAndAge= customerRepository.findByGenderAndAge(gender,age);
+
+        List<CustomerResponse> customerResponsesForGenderAndAge=new ArrayList<>();
+
+
+        for(Customer customer:customersForGenderAndAge){
+            customerResponsesForGenderAndAge.add(CustomerTransfromer.EntityToCustomerResponse(customer));
+        }
+        return customerResponsesForGenderAndAge;
+    }
+
+    public List<CustomerResponse> getAllByGenderAndAgeGreaterThan(String gender, int age) {
+
+        List<Customer> customersForGenderAndAge= customerRepository.findByGenderAndAgeGreaterThan(gender,age);
+
+        List<CustomerResponse> customerResponsesForGenderAndAge=new ArrayList<>();
+
+
+        for(Customer customer:customersForGenderAndAge){
+            customerResponsesForGenderAndAge.add(CustomerTransfromer.EntityToCustomerResponse(customer));
+        }
+        return customerResponsesForGenderAndAge;
     }
 }
