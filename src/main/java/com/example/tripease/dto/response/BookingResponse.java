@@ -1,36 +1,26 @@
-package com.example.tripease.model;
-
+package com.example.tripease.dto.response;
 
 import com.example.tripease.Enums.TripStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
-
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
-@Entity
+@Getter
 @Builder
-public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingId;
-
+public class BookingResponse {
     private String pickup;
     private String destination;
-
     private double tripDistanceInKm;
-
-    @Enumerated(EnumType.STRING)
     private TripStatus tripStatus;
-
     private double billAmount;
-    @CreationTimestamp
     Date bookedAt;
-    @UpdateTimestamp
     Date lastUpdateAt;
+    CustomerResponse customer;
+    CabResponse cab;
 }

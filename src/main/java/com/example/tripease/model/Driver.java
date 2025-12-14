@@ -1,10 +1,7 @@
 package com.example.tripease.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Builder
 @Table(name = "driver_info")
 public class Driver {
     @Id
@@ -22,12 +20,13 @@ public class Driver {
     @Column(name = "first_name")
     private String name;
     private int age;
+    @Column(unique = true,nullable = false)
     private   String emailId;
     @OneToMany(cascade = CascadeType.ALL)
             @JoinColumn(name = "driver_id")
     List<Booking> bookings=new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
             @JoinColumn(name = "cab_id")
     Cab cab;
 }
