@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CabRepository extends JpaRepository<Cab,Integer> {
 
-    @Query("select c from Cab c where c.available=true order by rand() limit 1")
+    @Query("select c from Cab c where c.available=true order by random() limit 1")
     Cab findingAvailableCabRandomly ();
 }
